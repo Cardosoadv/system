@@ -1,11 +1,3 @@
-<?
-/*
-*TO-DO
-Ajustar as cores de acordo com a prioridade.
-
-*/
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -120,34 +112,33 @@ Ajustar as cores de acordo com a prioridade.
         themeSystem: 'bootstrap',
 
         events: [
-          <?php
-          if ($tarefas) : ?>
-          <?php foreach ($tarefas as $tarefa) :
-              echo '{' . "\n";
-              echo "id: '" . $tarefa['id'] . "'," . "\n";
-              echo "title: '" . $tarefa['task'] . "'," . "\n";
-              echo "start: '" . $tarefa['prazo'] . "'," . "\n";
-                if ($tarefa['prioridade']==1){
-                  echo "backgroundColor: '#98fb98', \n";
-                }
-                if ($tarefa['prioridade']==2){
-                  echo "backgroundColor: '#cd853f', \n";
-                }
-                if ($tarefa['prioridade']==3){
-                  echo "backgroundColor: '#d2691e', \n";
-                }
-                if ($tarefa['prioridade']==4){
-                  echo "backgroundColor: '#ffd700', \n";
-                }
-                if ($tarefa['prioridade']==5){
-                  echo "backgroundColor: '#b22222', \n";
-                }
+    <?php
+    if ($tarefas) : ?>
+    <?php foreach ($tarefas as $tarefa) :
+        echo '{' . "\n";
+        echo "          id: '" . $tarefa['id'] . "'," . "\n";
+        echo "          title: '" . $tarefa['task'] . "'," . "\n";
+        echo "          start: '" . $tarefa['prazo'] . "'," . "\n";
+        if ($tarefa['prioridade'] == 1) {
+          echo "          backgroundColor: '#98fb98', \n";
+        }
+        if ($tarefa['prioridade'] == 2) {
+          echo "          backgroundColor: '#cd853f', \n";
+        }
+        if ($tarefa['prioridade'] == 3) {
+          echo "          backgroundColor: '#d2691e', \n";
+        }
+        if ($tarefa['prioridade'] == 4) {
+          echo "          backgroundColor: '#ffd700', \n";
+        }
+        if ($tarefa['prioridade'] == 5) {
+          echo "          backgroundColor: '#b22222', \n";
+        }
+              echo "          eventTextColor: '#000000', \n";
+              echo "          borderColor: '#000000', \n";
+              echo "          allDay: true \n";
 
-              echo "eventTextColor: '#000000', \n";
-              echo "borderColor: '#000000', \n";
-              echo "allDay: true \n";
-
-              echo '},' . "\n";
+              echo '          },' . "\n";
             endforeach;
           endif;
           ?>
