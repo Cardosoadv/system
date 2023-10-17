@@ -87,17 +87,18 @@ class BaseController extends Controller
         $TasksModel = new TasksModel();
         $data['notificacaoTarefas']= $TasksModel
         ->vencendo($userid,$weekforNow);
+        $num_tarefas=$TasksModel
+        ->tarefas($userid)
+        ->getResultArray();
+        $data['num_tarefas']=count($num_tarefas);
 
         $UserDataModel = new UserDataModel();
         $data['user_data']=$UserDataModel
         ->get_dados($userid)
         ->getResultArray();
  
-        $TaskModel = new TasksModel();
-        $num_tarefas=$TaskModel
-        ->num_tarefas($hoje)
-        ->getResultArray();
-        $data['num_tarefas']=count($num_tarefas);
+
+        
         return $data;
 
     }

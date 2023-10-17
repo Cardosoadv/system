@@ -34,7 +34,8 @@ class Agenda extends BaseController
         $TasksModel = new TasksModel();
         $data['tarefas'] = $TasksModel
             ->tarefas($advogado)
-            ->getResultArray();
+            ->getResultArray(); 
+
 
             helper('form');
             $AdvogadosModel = new AdvogadosModel();
