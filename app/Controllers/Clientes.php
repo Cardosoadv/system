@@ -1,15 +1,4 @@
 <?php
-/*
-*Este controle realiza as operações de CRUD dos clientes.
-*Controle já ajustado ao novo formato.
-*To-do
-*Este controle ainda esta incompleto.
-
-@ Autor:    Cardoso
-@ Data:     05/05/2022
-@ Versão:   0.0.1
-
-*/ 
 
 namespace App\Controllers;
 
