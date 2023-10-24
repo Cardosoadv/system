@@ -3,40 +3,73 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-
+use App\Models\DespesasModel;
+use App\Models\FaturasModel;
 
 class Upload extends BaseController
 {
 
     // Exibir lista de clientes
-    public function upload()
+    public function despesas()
     {
+
         $import = $_FILES['import'];
-        if ($import['type']==="text/csv"){
+        if ($import['type'] === "text/csv") {
             $valuesImport = fopen($import['tmp_name'], "r");
+            helper('customDate');
+            $i = 0;
+            while ($linha = fgetcsv($valuesImport, 1000, ",")) {
 
-            while($linha = fgetcsv($valuesImport, 1000, ",")){
-                $data['dataVencimento'] = $linha[0];
-                $data['dataPagamento'] = $linha[1];
-                $data['despesa'] = mb_convert_encoding($linha[2], "UTF-8");
-                $data['valor'] =  $linha[3];
-                $data['rateio'] = $linha[5];
-
-                echo "<pre>";
-                print_r($data);
-                
+                if ($i > 0) {
+                    $preValor = str_replace(',', '.', str_replace('.', '', $linha[3]));
+                    $data = [
+                        'data_vencimento' => importData($linha[0]),
+                        'data_pagamento' => importData($linha[1]),
+                        'despesa' => mb_convert_encoding($linha[2], "UTF-8"),
+                        'valor' =>  str_replace("-R$", "", $preValor),
+                        'rateio' => $linha[5]
+                    ];
+                    if ($data['data_pagamento'] == null) {
+                        $data['data_pagamento'] = '0000-00-00';
+                    }
+                    $DespesasModel = new DespesasModel();
+                    $DespesasModel->insert($data);
+                }
+                $i++;
             }
-
- 
-
-        }else{
+            return $this->response->redirect(site_url('despesas'));
+        } else {
             $_SESSION['msg'] = "O arquivo enviado não é CSV!";
-
         }
-
-
-
-        var_dump($import);
     }
 
-}    
+    public function receitas()
+    {
+
+        $import = $_FILES['import'];
+        if ($import['type'] === "text/csv") {
+            $valuesImport = fopen($import['tmp_name'], "r");
+            helper('customDate');
+            $i = 0;
+            while ($linha = fgetcsv($valuesImport, 1000, ",")) {
+                if ($i > 0) {
+                    $preValor = str_replace(',', '.', str_replace('.', '', $linha[3]));
+                    $data = [
+                        'descricao' => mb_convert_encoding($linha[2], "UTF-8"),
+                        'banco_id' => 1,
+                        'rateio' => $linha[5],
+                        'fat_emissao'  => importData($linha[0]),
+                        'fat_vencimento' => importData($linha[1]),
+                        'fat_valor'  => str_replace("R$", "", $preValor),
+                    ];
+                    $FaturasModel = new FaturasModel();
+                    $FaturasModel->insert($data);
+
+                    $i++;
+                } else {
+                    $_SESSION['msg'] = "O arquivo enviado não é CSV!";
+                }
+            }
+        }
+    }
+}

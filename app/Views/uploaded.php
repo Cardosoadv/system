@@ -48,17 +48,9 @@
           ?>
           <div class="mt-3">
 
-          <h1>Importar Despesas</h1>
-          <form action="<?= site_url('/upload/despesas');?>" name="importDespesas" id="importDespesas" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-          <input type="file" name="import" />
-          <input type="submit" value="Enviar" />
-          </form>
-          <br>
-          <h1>Importar Receitas</h1>
-          <form action = "<?= site_url('/upload/receitas');?>" name="import" id="import" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-          <input type="file" name="import" />
-          <input type="submit" value="Enviar" />
-          </form>
+          
+          
+
 
 
           </div>

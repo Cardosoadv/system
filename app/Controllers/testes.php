@@ -36,11 +36,6 @@ class Testes extends BaseController
         $data['saldo_inicial'] = $BancosModel->saldo_inicial(1);
         $data['pagamentos'] = $BancosModel->get_pagamentos(1);
         $data['despesas'] = $BancosModel->get_despesas(1);
-        helper('form');
-        $atributes = ['name'=>'import','id'=>'import'];
-        $data['form']=form_open_multipart(site_url('upload/upload'),$atributes);
-
-
         //widget saldo fim
 
         return view('testes', $data);
